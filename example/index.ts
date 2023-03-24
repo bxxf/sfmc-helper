@@ -1,5 +1,4 @@
-
-import SfmcHelper from "../src";
+import SfmcHelper from "sfmc-helper";
 
 // just importing env variables - you can skip this part
 import dotenv from "dotenv";
