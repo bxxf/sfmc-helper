@@ -1,6 +1,6 @@
-import type { SfmcApiConfig } from "./types";
-import { SfmcDataExtension } from "./utils/data-extension";
+import { SfmcApiConfig } from "sfmc-helper";
 
+import { SfmcDataExtension } from "./utils/data-extension";
 import fetch from "cross-fetch";
 
 interface AccessToken {

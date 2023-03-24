@@ -1,8 +1,8 @@
-import type { ApiResponse, ComparisonOperator } from "../types";
-import type { SfmcHelper } from "../sfmc-helper";
+import type { ApiResponse, ComparisonOperator } from "sfmc-helper";
 
 import fetch from "cross-fetch";
 import { Filter } from "./filter";
+import { SfmcHelper } from "../sfmc-helper";
 
 export class SfmcQueryBuilder {
   private helper: SfmcHelper;
@@ -92,9 +92,9 @@ export class SfmcQueryBuilder {
   }
 
   private async checkAuth() {
-    if (!this.helper.isAuthenticated()) {
+    if (!(this.helper as any).isAuthenticated()) {
       try {
-        await this.helper.authenticate();
+        await (this.helper as any).authenticate();
       } catch {
         throw new Error("Failed to authenticate with SFMC API");
       }
@@ -108,13 +108,13 @@ export class SfmcQueryBuilder {
         ? this.filters.map((filter) => filter.toString()).join(" and ")
         : undefined;
       const response = fetch(
-        `${this.helper.getConfig().restEndpoint}/data/v1/customobjectdata/key/${
+        `${(this.helper as any).getConfig().restEndpoint}/data/v1/customobjectdata/key/${
           this.objectKey
         }/rowset${filterString ? `?$filter=${filterString}` : ``}`,
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${this.helper.getAccessToken()?.token}`,
+            Authorization: `Bearer ${(this.helper as any).getAccessToken()?.token}`,
             "Content-Type": "application/json",
           },
         }

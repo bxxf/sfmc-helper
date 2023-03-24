@@ -1,5 +1,8 @@
+/// <reference path="./types.ts" />
+
 import { SfmcHelper as SfmcHelperClass} from './sfmc-helper';
-export declare const initializeSfmcHelper: typeof SfmcHelperClass.initialize;
-export declare const SfmcHelper: typeof SfmcHelperClass.initialize;
-export default initializeSfmcHelper;
+
+export const initializeSfmcHelper = SfmcHelperClass.initialize;
+const SfmcHelper = SfmcHelperClass.initialize;
+export default SfmcHelper;
 

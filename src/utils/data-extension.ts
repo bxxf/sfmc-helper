@@ -100,7 +100,7 @@ export class SfmcDataExtension {
    * @returns {SfmcQueryBuilderWhere} The query builder with where method to filter data
    */
   get(): SfmcQueryBuilderWhere {
-    const queryBuilder = SfmcQueryBuilder.create(this.helper, this.objectKey);
+    const queryBuilder = SfmcQueryBuilder.create(this.helper as any, this.objectKey);
 
     const handler = {
       get: (target: SfmcQueryBuilderWhere, prop: string) => {

@@ -1,4 +1,4 @@
-import { ComparisonOperator } from "../types";
+import { ComparisonOperator } from "sfmc-helper";
 
 export class Filter {
   columnName: string;

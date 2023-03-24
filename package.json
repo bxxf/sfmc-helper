@@ -1,16 +1,19 @@
 {
   "name": "sfmc-helper",
-  "version": "0.1.2",
+  "version": "0.1.16",
   "description": "A helper library for Salesforce Marketing Cloud (SFMC) to make it easier to work with the Data Extension API.",
   "author": "Filip Brebera",
   "scripts": {
     "build": "tsc"
   },
   "private": false,
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "prepublishOnly": "tsc",
   "main": "dist/index.js",
-  "types": "types/index.d.ts",
+  "types": "dist/types.d.ts",
+  "typings": "dist/types.d.ts",
   "dependencies": {
     "cross-fetch": "^3.1.5"
   },
