@@ -80,19 +80,6 @@ declare module "sfmc-helper" {
      * @returns The query builder with where method to filter data.
      */
     get(): SfmcQueryBuilderWhere;
-
-    /**
-     * Adds a WHERE clause to the query.
-     * @param columnName The column name for the filter.
-     * @param operator The comparison operator for the filter.
-     * @param value The value for the filter.
-     * @returns An instance of the SfmcDataExtension class.
-     */
-    where(
-      columnName: string,
-      operator: ComparisonOperator,
-      value: string
-    ): SfmcDataExtension;
   }
 
   /**
