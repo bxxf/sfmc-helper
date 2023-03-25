@@ -12,6 +12,7 @@ jobs:
       
 
     - name: Tests status
+      if: always()
       uses: ouzi-dev/commit-status-updater@v2
       with:
         addHoldComment: "true"
