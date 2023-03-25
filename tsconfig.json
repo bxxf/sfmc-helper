@@ -16,5 +16,5 @@
   },
   
   "include": ["src/**/*.ts", "src/types.ts"],
-  "exclude": ["node_modules", "dist", "src/tests", "example"]
+  "exclude": ["node_modules", "dist", "tests", "example"]
 }
