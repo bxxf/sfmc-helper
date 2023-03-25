@@ -1,7 +1,7 @@
 import { SfmcHelper } from "../sfmc-helper";
 import { SfmcQueryBuilder, SfmcQueryBuilderWhere } from "./query-builder";
 
-import fetch from "cross-fetch";
+import fetch from "node-fetch";
 
 /**
  * Represents a Salesforce Marketing Cloud Data Extension
@@ -82,7 +82,7 @@ export class SfmcDataExtension {
           }
         );
 
-        const data = await response.json();
+        const data: any = await response.json();
 
         if (!response.ok) {
           console.error(data);
@@ -100,7 +100,10 @@ export class SfmcDataExtension {
    * @returns {SfmcQueryBuilderWhere} The query builder with where method to filter data
    */
   get(): SfmcQueryBuilderWhere {
-    const queryBuilder = SfmcQueryBuilder.create(this.helper as any, this.objectKey);
+    const queryBuilder = SfmcQueryBuilder.create(
+      this.helper as any,
+      this.objectKey
+    );
 
     const handler = {
       get: (target: SfmcQueryBuilderWhere, prop: string) => {

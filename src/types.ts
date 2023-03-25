@@ -18,12 +18,12 @@ declare module "sfmc-helper" {
     | "le"
     | "gt"
     | "ge"
-    | ComparisionEnum;
+    | ComparisonEnum;
 
   /**
    * The supported comparison operators for a WHERE clause in a query.
    */
-  export enum ComparisionEnum {
+  export enum ComparisonEnum {
     Equal = "eq",
     NotEqual = "ne",
     LargerThan = "lt",

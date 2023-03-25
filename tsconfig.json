@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "CommonJS",
+    "module": "ES2020",
     "outDir": "./dist",
     "strict": true,
     "declaration": true,
@@ -12,9 +12,9 @@
     "paths": {
       "sfmc-helper": ["./src/index.ts"],
       "sfmc-helper/*": ["./src/*"]
-    },
+    }
   },
   
   "include": ["src/**/*.ts", "src/types.ts"],
-  "exclude": ["node_modules", "dist", "tests", "example"]
+  "exclude": ["node_modules", "dist", "src/tests", "example"]
 }

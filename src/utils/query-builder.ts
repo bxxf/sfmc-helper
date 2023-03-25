@@ -36,6 +36,7 @@ export class SfmcQueryBuilder {
    * @returns {SfmcQueryBuilderWhere} - An instance of the SfmcQueryBuilderWhere class.
    */
   get(): SfmcQueryBuilderWhere {
+    this.checkAuth();
     const handler = {
       get: (target: SfmcQueryBuilderWhere, prop: string) => {
         if (prop === "then") {
@@ -108,13 +109,17 @@ export class SfmcQueryBuilder {
         ? this.filters.map((filter) => filter.toString()).join(" and ")
         : undefined;
       const response = fetch(
-        `${(this.helper as any).getConfig().restEndpoint}/data/v1/customobjectdata/key/${
-          this.objectKey
-        }/rowset${filterString ? `?$filter=${filterString}` : ``}`,
+        `${
+          (this.helper as any).getConfig().restEndpoint
+        }/data/v1/customobjectdata/key/${this.objectKey}/rowset${
+          filterString ? `?$filter=${filterString}` : ``
+        }`,
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${(this.helper as any).getAccessToken()?.token}`,
+            Authorization: `Bearer ${
+              (this.helper as any).getAccessToken()?.token
+            }`,
             "Content-Type": "application/json",
           },
         }

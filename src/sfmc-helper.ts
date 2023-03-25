@@ -1,7 +1,7 @@
 import { SfmcApiConfig } from "sfmc-helper";
 
 import { SfmcDataExtension } from "./utils/data-extension";
-import fetch from "cross-fetch";
+import fetch from "node-fetch";
 
 interface AccessToken {
   token: string;
@@ -42,6 +42,7 @@ export class SfmcHelper {
     }
     return SfmcHelper.instance;
   }
+  
   /**
    * @private
    * Authenticates with the Salesforce Marketing Cloud API.
@@ -65,7 +66,7 @@ export class SfmcHelper {
       }),
     });
     if (response.ok) {
-      const data = await response.json();
+      const data: any = await response.json();
       const expiresIn = data.expires_in;
       this.accessToken = {
         token: data.access_token,
