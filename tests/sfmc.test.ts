@@ -1,6 +1,6 @@
 import nock from "nock";
 import { ComparisonEnum } from "../src/index";
-import { SfmcHelper } from "../src/sfmc-js";
+import { SfmcHelper } from "../src/sfmc-ts";
 import { SfmcQueryBuilder } from "../src/utils/query-builder";
 import { apiConfig, authResponse, authRequestBody } from "./mock-data";
 

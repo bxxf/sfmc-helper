@@ -1,4 +1,4 @@
-import { SfmcHelper } from "../sfmc-js";
+import { SfmcHelper } from "../sfmc-ts";
 import { SfmcQueryBuilder, SfmcQueryBuilderWhere } from "./query-builder";
 
 import fetch from "node-fetch";

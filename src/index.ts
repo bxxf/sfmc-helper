@@ -1,10 +1,10 @@
 /// <reference path="./types.ts" />
 
-import { SfmcHelper } from "./sfmc-js";
+import { SfmcHelper } from "./sfmc-ts";
 
 export const initializeSfmcHelper = SfmcHelper.initialize;
-const SfmcJs = SfmcHelper.initialize;
-export default SfmcJs;
+const SfmcTs = SfmcHelper.initialize;
+export default SfmcTs;
 
 export enum ComparisonEnum {
   Equal = "eq",

@@ -1,4 +1,4 @@
-import type { ApiResponse, ComparisonOperator } from "sfmc-js";
+import type { ApiResponse, ComparisonOperator } from "sfmc-ts";
 
 import fetch from "node-fetch";
 import { SfmcFilter as Filter } from "./filter";

@@ -1,4 +1,4 @@
-import { ComparisonOperator } from "sfmc-js";
+import { ComparisonOperator } from "sfmc-ts";
 
 export class SfmcFilter {
   columnName: string;
