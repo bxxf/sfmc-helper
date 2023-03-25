@@ -1,9 +1,9 @@
 {
-  "name": "sfmc-helper",
-  "version": "0.2.3",
+  "name": "sfmc-js",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bxxf/sfmc-helper"
+    "url": "https://github.com/bxxf/sfmc-js"
   },
   "description": "A helper library for Salesforce Marketing Cloud (SFMC) to make it easier to work with the Data Extension API.",
   "author": "Filip Brebera <breberaf@gmail.com>",
@@ -14,6 +14,18 @@
   "private": false,
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "salesforce",
+    "marketing",
+    "cloud",
+    "sfmc",
+    "data",
+    "extension",
+    "api",
+    "helper",
+    "library",
+    "dataextension"
   ],
   "prepublishOnly": "tsc",
   "main": "dist/index.js",

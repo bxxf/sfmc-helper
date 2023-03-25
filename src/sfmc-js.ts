@@ -1,4 +1,4 @@
-import { SfmcApiConfig } from "sfmc-helper";
+import { SfmcApiConfig } from "sfmc-js";
 
 import { SfmcDataExtension } from "./utils/data-extension";
 import fetch from "node-fetch";

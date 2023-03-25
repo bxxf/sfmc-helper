@@ -1,4 +1,4 @@
-declare module "sfmc-helper" {
+declare module "sfmc-js" {
   /**
    * Represents the response from the Marketing Cloud API.
    */

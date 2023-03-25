@@ -1,17 +1,16 @@
 /// <reference path="./types.ts" />
 
-import { SfmcHelper as SfmcHelperClass } from "./sfmc-helper";
+import { SfmcHelper } from "./sfmc-js";
 
-export const initializeSfmcHelper = SfmcHelperClass.initialize;
-const SfmcHelper = SfmcHelperClass.initialize;
-export default SfmcHelper;
+export const initializeSfmcHelper = SfmcHelper.initialize;
+const SfmcJs = SfmcHelper.initialize;
+export default SfmcJs;
 
 export enum ComparisonEnum {
-    Equal = "eq",
-    NotEqual = "ne",
-    LargerThan = "lt",
-    LowerOrEqual = "le",
-    GreaterThan = "gt",
-    GreaterOrEqual = "ge",
-  }
-  
+  Equal = "eq",
+  NotEqual = "ne",
+  LargerThan = "lt",
+  LowerOrEqual = "le",
+  GreaterThan = "gt",
+  GreaterOrEqual = "ge",
+}

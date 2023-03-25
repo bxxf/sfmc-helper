@@ -10,8 +10,8 @@
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "sfmc-helper": ["./src/index.ts"],
-      "sfmc-helper/*": ["./src/*"]
+      "sfmc-js": ["./src/index.ts"],
+      "sfmc-js/*": ["./src/*"]
     }
   },
   

@@ -1,8 +1,8 @@
-import type { ApiResponse, ComparisonOperator } from "sfmc-helper";
+import type { ApiResponse, ComparisonOperator } from "sfmc-js";
 
 import fetch from "node-fetch";
-import { Filter } from "./filter";
-import { SfmcHelper } from "../sfmc-helper";
+import { SfmcFilter as Filter } from "./filter";
+import { SfmcHelper } from "../sfmc-js";
 
 export class SfmcQueryBuilder {
   private helper: SfmcHelper;

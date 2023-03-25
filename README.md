@@ -1,20 +1,20 @@
 # SFMC Data Extension Helper
 
-SFMC Helper is a Node.js library that provides an easy-to-use interface for interacting with the Salesforce Marketing Cloud API. It simplifies the process of managing data extensions, allowing developers to work with Marketing Cloud data in a more streamlined and efficient way.
+SFMC JS is a Node.js library that provides an easy-to-use interface for interacting with the Salesforce Marketing Cloud API. It simplifies the process of managing data extensions, allowing developers to work with Marketing Cloud data in a more streamlined and efficient way.
 
 ## Installation
 
-To install the SFMC Helper library, run the following command in your terminal:
+To install the SFMC JS library, run the following command in your terminal:
 
 ```sh
-npm install sfmc-helper
+npm install sfmc-js
 ```
 
 ## Usage
 To use the SFMC Helper library, you must first initialize it with your API configuration:
 
 ```js
-import SfmcHelper from "sfmc-helper";
+import SfmcHelper from "sfmc-js";
 
 const sfmc = SfmcHelper.initialize({
   clientId: "YOUR_CLIENT_ID",
