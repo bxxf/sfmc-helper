@@ -1,4 +1,4 @@
-import SfmcAPI from "../src";
+import SfmcAPI from "../dist";
 
 // just importing env variables - you can skip this part
 import dotenv from "dotenv";

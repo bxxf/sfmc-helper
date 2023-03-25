@@ -75,6 +75,18 @@ export class SfmcQueryBuilder {
       throw new Error("Value must be a string");
     }
 
+    if (
+      operator !== "eq" &&
+      operator !== "gt" &&
+      operator !== "lt" &&
+      operator !== "like" &&
+      operator !== "ne" &&
+      operator !== "ge" &&
+      operator !== "le"
+    ) {
+      throw new Error("Operator must be a valid comparison operator");
+    }
+
     const filter = new Filter(columnName, operator, value);
     this.filters.push(filter);
 

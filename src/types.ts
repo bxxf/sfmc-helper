@@ -18,6 +18,7 @@ declare module "sfmc-ts" {
     | "le"
     | "gt"
     | "ge"
+    | "like"
     | ComparisonEnum;
 
   /**
@@ -30,6 +31,7 @@ declare module "sfmc-ts" {
     LowerOrEqual = "le",
     GreaterThan = "gt",
     GreaterOrEqual = "ge",
+    Like = "like"
   }
 
   /**
@@ -79,7 +81,7 @@ declare module "sfmc-ts" {
      * Fetches all rows from the data extension.
      * @returns The query builder with where method to filter data.
      */
-    get(): SfmcQueryBuilderWhere;
+    get():  SfmcQueryBuilderWhere & Promise<any>;
   }
 
   /**
