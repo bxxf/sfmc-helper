@@ -1,6 +1,6 @@
 import type { ApiResponse, ComparisonOperator } from "sfmc-helper";
 
-import fetch from "cross-fetch";
+import fetch from "node-fetch";
 import { Filter } from "./filter";
 import { SfmcHelper } from "../sfmc-helper";
 
