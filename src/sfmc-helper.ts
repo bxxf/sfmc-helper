@@ -122,4 +122,5 @@ export class SfmcHelper {
   dataExtension(objectKey: string): SfmcDataExtension {
     return new SfmcDataExtension(this, objectKey);
   }
+  
 }

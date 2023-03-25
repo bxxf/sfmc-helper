@@ -118,4 +118,6 @@ export class SfmcDataExtension {
 
     return new Proxy(queryBuilder.get(), handler);
   }
+
+
 }

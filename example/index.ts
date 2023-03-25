@@ -1,4 +1,4 @@
-import SfmcHelper from "sfmc-helper";
+import SfmcHelper from "../src";
 
 // just importing env variables - you can skip this part
 import dotenv from "dotenv";
@@ -13,11 +13,13 @@ const config = {
 };
 
 const someFunction = async () => {
+  
   const sfmc = SfmcHelper(config);
+  
   const result = await sfmc
-    .dataExtension("myDataExtension")
+    .dataExtension("SendLogExpansionPack")
     .get()
-    .where("EmailAddress", "eq", "filip.brebera@example.com");
+    .where("EmailAddress", "eq", "victor.shapochkin@avast.com")
   console.log(result);
 };
 
