@@ -9,13 +9,3 @@ jobs:
       run: yarn
     - name: Run tests
       run: yarn test
-      
-
-    - name: Tests status
-      if: always()
-      uses: ouzi-dev/commit-status-updater@v2
-      with:
-        addHoldComment: "true"
-        status: "${{ job.status }}"
-        successComment: "Test passed ✅"
-        failComment: "Test failed 🚨"
