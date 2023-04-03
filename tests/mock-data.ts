@@ -3,6 +3,7 @@ export const apiConfig = {
   clientSecret: "test_client_secret",
   authEndpoint: "https://auth.example.com",
   restEndpoint: "https://rest.example.com",
+  soapEndpoint: "https://soap.example.com",
   businessUnitId: "test_business_unit_id",
 };
 export const authResponse = {

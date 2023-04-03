@@ -1,13 +1,16 @@
-import { SfmcHelper } from "../../sfmc-ts";
 import fetch from "node-fetch";
+import { parseStringPromise } from "xml2js";
+
 import {
   createDataExtensionBody,
   createFieldsXml,
 } from "../../models/soap/create";
+
 import { deleteDataExtensionBody } from "../../models/soap/delete";
 import { retrieveDataExtensionBody } from "../../models/soap/retrieve";
-import { parseStringPromise } from "xml2js";
 import { SfmcSoapFilter, createFilterXml } from "./soap-filter";
+import { SfmcHelper } from "../../sfmc-ts";
+
 
 enum SoapAction {
   Create = "Create",
@@ -80,7 +83,6 @@ export class SfmcDataExtensionSoap implements ISoapRequest {
   ): Promise<any> {
     await this.helper.authenticate();
     const soapEnvelope = this.buildSoapEnvelope(requestBody);
-    console.log(soapEnvelope);
     let response: any;
     try {
       response = await fetch(
@@ -151,8 +153,7 @@ export class SfmcDataExtensionSoap implements ISoapRequest {
         .join("");
 
       const filterXml = filters.length > 0 ? createFilterXml(filters) : "";
-     
-     
+
       const response = await this.sendSoapRequest(
         retrieveDataExtensionBody(
           this.objectKey,
@@ -165,12 +166,9 @@ export class SfmcDataExtensionSoap implements ISoapRequest {
 
       const envelopeBody = response["soap:Envelope"]["soap:Body"];
       const retrieveResponse = envelopeBody.RetrieveResponseMsg;
-
-    
-    
+     
       const overallStatus = retrieveResponse.OverallStatus;
       const results = retrieveResponse.Results;
-      
 
       const resultsArray = Array.isArray(results)
         ? results

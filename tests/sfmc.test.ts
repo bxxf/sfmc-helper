@@ -3,6 +3,7 @@ import { ComparisonEnum } from "../src/index";
 import { SfmcHelper } from "../src/sfmc-ts";
 import { SfmcQueryBuilder } from "../src/utils/query-builder";
 import { apiConfig, authResponse, authRequestBody } from "./mock-data";
+import { SfmcDataExtensionSoap } from "../src/utils/soap/soap-client";
 
 describe("SfmcHelper", () => {
   nock.disableNetConnect();
@@ -177,5 +178,54 @@ describe("SfmcHelper", () => {
       .where(columnName2, operator2, value2);
 
     expect(result).toEqual(rowsetResponse.items.map((item) => item.values));
+  });
+
+  it("should fetch via soap api", async () => {
+    const dataExtension = "test_data_extension_key";
+    const fields = ["test_column_1", "test_column_2"];
+    const testValues = {
+      test_column_1: "value_1",
+      test_column_2: "value_2",
+    };
+
+    const soapResponse = `
+      <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+        <soap:Body>
+          <RetrieveResponseMsg xmlns="http://exacttarget.com/wsdl/partnerAPI">
+            <OverallStatus>OK</OverallStatus>
+            <RequestID>123456789</RequestID>
+            <Results xsi:type="DataExtensionObject">
+              <PartnerKey xsi:nil="true"/>
+              <ObjectID xsi:nil="true"/>
+              <Type>DataExtensionObject</Type>
+              <Properties>
+                ${fields
+                  .map(
+                    (field) =>
+                      // @ts-ignore
+                      `<Property><Name>${field}</Name><Value>${testValues[field]}</Value></Property>`
+                  )
+                  .join("")}
+               
+              </Properties>
+            </Results>
+            <RequestType>Retrieve</RequestType>
+          </RetrieveResponseMsg>
+        </soap:Body>
+      </soap:Envelope>
+    `;
+
+    nock(apiConfig.soapEndpoint)
+      .persist()
+      .post("/Service.asmx")
+      .reply(200, soapResponse);
+
+    const de = new SfmcDataExtensionSoap(helper, dataExtension);
+    const result = await de.get({
+      fields,
+      filters: [],
+    });
+
+    expect(result).toEqual([testValues]);
   });
 });

@@ -19,9 +19,7 @@ const someFunction = async () => {
   const result = await sfmc
     .dataExtension("DataExtensionName")
     .get()
-    .where("EmailAddress", "eq", "someemail@example.com")
   console.log(result);
-
 
   const resultSoap = await sfmc
     .dataExtension("DataExtensionName")
@@ -30,7 +28,7 @@ const someFunction = async () => {
       queryAllAccounts: true,
     })
     .where("Name", "equals", "test");
-    
+
   console.log(resultSoap);
 };
 
