@@ -31,7 +31,7 @@ declare module "sfmc-ts" {
     LowerOrEqual = "le",
     GreaterThan = "gt",
     GreaterOrEqual = "ge",
-    Like = "like"
+    Like = "like",
   }
 
   /**
@@ -42,6 +42,7 @@ declare module "sfmc-ts" {
     clientSecret: string;
     authEndpoint: string;
     restEndpoint: string;
+    soapEndpoint: string;
     businessUnitId?: string;
   }
 
@@ -81,9 +82,31 @@ declare module "sfmc-ts" {
      * Fetches all rows from the data extension.
      * @returns The query builder with where method to filter data.
      */
-    get():  SfmcQueryBuilderWhere & Promise<any>;
+    get(): SfmcQueryBuilderWhere & Promise<any>;
+
+    /**
+     * Creates SOAP api object for the data extension.
+     * @returns Soap API object.
+     */
+    soap: SfmcDataExtensionSoap;
   }
 
+  export interface SfmcDataExtensionField {
+    name: string;
+    value: any;
+    isPrimaryKey?: boolean;
+    isRequired?: boolean;
+  }
+
+  export interface PrimaryKeyField extends SfmcDataExtensionField {
+    isPrimaryKey: true;
+  }
+
+  export type AtLeastOnePrimaryKey<T> = T[] extends PrimaryKeyField[]
+    ? T[]
+    : T extends PrimaryKeyField
+    ? T[]
+    : [PrimaryKeyField, ...T[]];
   /**
    * Interface for the SfmcApiConfig configuration object.
    */
@@ -136,22 +159,174 @@ declare module "sfmc-ts" {
     dataExtension(objectKey: string): SfmcDataExtension;
   }
 
-  /**
-   * Represents a Salesforce Marketing Cloud query builder.
-   */
-  interface SfmcQueryBuilder {
+  export class SfmcDataExtensionSoap {
+    /**
+     * Creates a new row in the data extension with the specified fields.
+     * @param {Object} args - The arguments object.
+     * @param {Array<AtLeastOnePrimaryKey<SfmcDataExtensionField>>} args.fields - An array of fields for the new row, with at least one primary key field.
+     * @returns {Promise<any>} - A promise that resolves when the row has been created.
+     */
+    create({
+      fields,
+    }: {
+      fields: AtLeastOnePrimaryKey<SfmcDataExtensionField>;
+    }): Promise<any>;
+
+    /**
+     * Retrieves data extension rows with specified fields and optional filters.
+     * @param {string[]} fields - An array of field names to retrieve.
+     * @param {ISoapGetOptions} options - Optional get options.
+     * @returns {SoapQueryBuilderWhere} - A SoapQueryBuilderWhere instance to add filter conditions to the query.
+     */
+    get(fields: string[], options?: ISoapGetOptions): SoapQueryBuilderWhere;
+
+    /**
+     * Removes the data extension.
+     * @returns {Promise<any>} - A promise that resolves when the data extension has been removed.
+     */
+    delete(): Promise<any>;
+  }
+
+  export interface ISoapRequestBuilder {
     /**
      * Adds a WHERE clause to the query.
      * @param {string} columnName - The column name for the filter.
-     * @param {ComparisonOperator} operator - The comparison operator for the filter.
+     * @param {SoapOperator} operator - The comparison operator for the filter.
      * @param {string} value - The value for the filter.
-     * @returns {SfmcQueryBuilder} - The SfmcQueryBuilder instance.
+     * @returns {SoapQueryBuilderWhere & Promise<any>} - An instance of the SoapQueryBuilderWhere class with Promise support.
      */
     where(
       columnName: string,
       operator: ComparisonOperator,
       value: string
-    ): SfmcQueryBuilder;
+    ): SoapQueryBuilderWhere & Promise<any>;
+  }
+
+  export interface SfmcFilter {
+    columnName: string;
+    operator: ComparisonOperator;
+    value: string;
+  }
+
+  export interface SoapQueryBuilderBase {
+    sfmcDataExtensionSoap: SfmcDataExtensionSoap;
+    fields: string[];
+    filters: SfmcFilter[];
+  }
+
+  export class SfmcSoapFilter {
+    columnName: string;
+    value: string;
+    operator: SoapOperator;
+  }
+
+  export enum SoapFilterOperator {
+    BEGINS_WITH = "beginsWith",
+    BETWEEN = "between",
+    CONTAINS = "contains",
+    ENDS_WITH = "endsWith",
+    EQUALS = "equals",
+    EXISTS_IN_STRING = "existsInString",
+    EXISTS_IN_STRING_AS_A_WORD = "existsInStringAsAWord",
+    GREATER_THAN = "greaterThan",
+    GREATER_THAN_ANNIVERSARY = "greaterThanAnniversary",
+    GREATER_THAN_OR_EQUAL = "greaterThanOrEqual",
+    IN = "IN",
+    IS_ANNIVERSARY = "isAnniversary",
+    IS_NOT_ANNIVERSARY = "isNotAnniversary",
+    IS_NOT_NULL = "isNotNull",
+    IS_NULL = "isNull",
+    LESS_THAN = "lessThan",
+    LESS_THAN_ANNIVERSARY = "lessThanAnniversary",
+    LESS_THAN_OR_EQUAL = "lessThanOrEqual",
+    LIKE = "like",
+    NOT_CONTAINS = "notContains",
+    NOT_EQUALS = "notEquals",
+    NOT_EXISTS_IN_STRING = "notExistsInString",
+  }
+
+  type SoapOperator =
+    | SoapFilterOperator
+    | "beginsWith"
+    | "between"
+    | "contains"
+    | "endsWith"
+    | "equals"
+    | "existsInString"
+    | "existsInStringAsAWord"
+    | "greaterThan"
+    | "greaterThanAnniversary"
+    | "greaterThanOrEqual"
+    | "IN"
+    | "isAnniversary"
+    | "isNotAnniversary"
+    | "isNotNull"
+    | "isNull"
+    | "lessThan"
+    | "lessThanAnniversary"
+    | "lessThanOrEqual"
+    | "like"
+    | "notContains"
+    | "notEquals"
+    | "notExistsInString";
+
+  export interface SoapQueryBuilderGet {
+    /**
+     * Adds a WHERE clause to the query.
+     * @param {string} columnName - The column name for the filter.
+     * @param {SoapOperator} operator - The comparison operator for the filter.
+     * @param {string} value - The value for the filter.
+     * @returns {SoapQueryBuilderWhere & Promise<any>} - An instance of the SoapQueryBuilderWhere class with Promise support.
+     */
+    where(
+      columnName: string,
+      operator: SoapOperator,
+      value: string
+    ): SoapQueryBuilderWhere;
+  }
+
+  export interface SoapQueryBuilderWhere
+    extends Promise<any>,
+      SoapQueryBuilderGet {}
+
+  export interface ApiResponse {
+    items: Array<{
+      values: any;
+    }>;
+  }
+
+  /**
+   * Represents the configuration object for the Marketing Cloud API.
+   */
+  export interface SfmcApiConfig {
+    clientId: string;
+    clientSecret: string;
+    authEndpoint: string;
+    restEndpoint: string;
+    soapEndpoint: string;
+    businessUnitId?: string;
+  }
+
+  export interface SfmcDataExtensionField {
+    name: string;
+    value: any;
+    isPrimaryKey?: boolean;
+    isRequired?: boolean;
+  }
+
+  export interface ISoapGetOptions {
+    queryAllAccounts?: boolean;
+  }
+
+  export interface SoapQueryBuilder extends SoapQueryBuilderBase {
+    /**
+     * Retrieves data extension rows with specified fields and optional filters.
+     * @param {Object} args - The arguments object.
+     * @param {string[]} args.fields - An array of field names to retrieve.
+     * @param {ISoapGetOptions} [args.options] - Optional get options.
+     * @returns {SoapQueryBuilderWhere} - A SoapQueryBuilderWhere instance to add filter conditions to the query.
+     */
+    get(fields: string[]): SoapQueryBuilderWhere;
   }
 
   const initializeSfmcHelper: typeof SfmcHelper.initialize;

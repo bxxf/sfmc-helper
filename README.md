@@ -22,6 +22,7 @@ const sfmc = SfmcAPI({
   authEndpoint: "https://YOUR_SUBDOMAIN.auth.marketingcloudapis.com",
   restEndpoint: "https://YOUR_SUBDOMAIN.rest.marketingcloudapis.com",
   businessUnitId: "YOUR_BUSINESS_UNIT_ID",
+  soapEndpoint: "https://YOUR_SUBDOMAIN.soap.marketingcloudapis.com"
 });
 
 ```
@@ -42,6 +43,17 @@ await dataExtension.row("Email", "someone@example.com").upsert({
 
 // Query the data extension (fetch all)
 const records = await dataExtension.get().where("FirstName", "eq", "John").where("LastName", "eq", "Doe");
+
+
+// You can also use SOAP API if you want to
+const resultSoap = await sfmc
+  .dataExtension("DataExtensionName")
+  .soap
+  .get(["Name", "Name2"], {
+    queryAllAccounts: true,
+  })
+  .where("Name", "equals", "test");
+
 ```
 
 ## Reference
@@ -56,6 +68,7 @@ Represents the configuration object for the Marketing Cloud API.
 - `clientSecret`: The client secret for the Marketing Cloud API.
 - `authEndpoint`: The authentication endpoint for the Marketing Cloud API.
 - `restEndpoint`: The REST API endpoint for the Marketing Cloud API.
+- `soapEndpoint`: The SOAP API endpoint for the Marketing Cloud API.
 - `businessUnitId`: The business unit ID (clientID) for the Marketing Cloud API.
 
 ### SFMC API (Main Object)
@@ -70,6 +83,17 @@ Factory function to create a Salesforce Marketing Cloud Helper instance.
 ### Data Extension
 
 Represents a data extension in the Marketing Cloud API.
+
+#### Properties
+
+##### soap
+
+Returns the SOAP API object with following methods:
+
+- `get(fields: string[], options?)`: Returns the DataExtension data with where() method for filtering
+- `create(fields: SfmcDataExtensionField[], options?)`: Creates the DataExtension
+  ( SfmcDataExtensionField - name: string, value: any, isPrimaryKey?: boolean; isRequired?: boolean )
+- `delete()`: Deletes the DataExtension
 
 #### Methods
 
@@ -105,7 +129,8 @@ Adds a WHERE clause to the query.
 
 
 ## Roadmap
-- Add support for the SOAP API.
+- Add support for the SOAP API (✅ basic implementation).
+- Add support for more operators between conditions (OR, etc.)
 - Add additional functions to interact with other objects in the Marketing Cloud API
 - Implement more granular error handling and logging capabilities.
 
