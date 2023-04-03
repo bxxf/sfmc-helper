@@ -55,7 +55,7 @@ const resultSoap = await sfmc
 ```
 
 ## Reference
-Detailed reference documentation can be found in the [REFERENCE.md](REFRENCE.md) file.
+Detailed reference documentation can be found in the [REFERENCE.md](https://github.com/bxxf/sfmc-ts/blob/main/REFERENCE.md) file.
 
 ## Roadmap
 - Add support for the SOAP API (✅ basic implementation).
