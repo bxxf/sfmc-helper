@@ -2,13 +2,16 @@ import { SfmcHelper } from "../sfmc-ts";
 import { SfmcQueryBuilder, SfmcQueryBuilderWhere } from "./query-builder";
 
 import fetch from "node-fetch";
+import { ISoapRequest, SfmcDataExtensionSoap } from "./soap/soap-client";
+import { SoapQueryBuilder } from "./soap/soap-query-builder";
 
 /**
  * Represents a Salesforce Marketing Cloud Data Extension
  */
 export class SfmcDataExtension {
-  private helper: SfmcHelper;
-  private objectKey: string;
+  protected helper: SfmcHelper;
+  protected objectKey: string;
+  soap: SoapQueryBuilder;
 
   /**
    * Constructs a new SfmcDataExtension instance.
@@ -18,6 +21,8 @@ export class SfmcDataExtension {
   constructor(helper: SfmcHelper, objectKey: string) {
     this.helper = helper;
     this.objectKey = objectKey;
+    const soapClient = new SfmcDataExtensionSoap(helper, objectKey);
+    this.soap = new SoapQueryBuilder(soapClient);
   }
 
   /**
