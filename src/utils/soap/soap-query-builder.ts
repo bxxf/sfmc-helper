@@ -1,5 +1,5 @@
 import { ISoapGetOptions } from "sfmc-ts";
-import { SfmcDataExtensionSoap } from "./soap-client";
+import { AtLeastOnePrimaryKey, SfmcDataExtensionField, SfmcDataExtensionSoap } from "./soap-client";
 import { SfmcSoapFilter, SoapFilterOperator } from "./soap-filter";
 export type SoapOperator =
   | SoapFilterOperator
@@ -77,9 +77,12 @@ class SoapQueryBuilderGet
     operator: SoapOperator,
     value: string
   ): SoapQueryBuilderWhere & Promise<any> {
-    return createWhereProxy(this.sfmcDataExtensionSoap, this.fields, [
-      { columnName, operator, value },
-    ], this.options) as any;
+    return createWhereProxy(
+      this.sfmcDataExtensionSoap,
+      this.fields,
+      [{ columnName, operator, value }],
+      this.options
+    ) as any;
   }
 
   protected execute(): Promise<any> {
@@ -131,7 +134,6 @@ class SoapQueryBuilderWhere
     this.fields = fields;
     this.filters = filters;
     this.options = options;
-
   }
 
   where(
@@ -178,5 +180,17 @@ const createWhereProxy = (
 export class SoapQueryBuilder extends SoapQueryBuilderBase {
   get(fields: string[], options?: ISoapGetOptions): SoapQueryBuilderGet {
     return createGetProxy(this.sfmcDataExtensionSoap, fields, options);
+  }
+
+  async create({
+    fields,
+  }: {
+    fields: AtLeastOnePrimaryKey<SfmcDataExtensionField>;
+  }): Promise<any> {
+    return this.sfmcDataExtensionSoap.create({ fields });
+  }
+
+  async delete(): Promise<any> {
+    return this.sfmcDataExtensionSoap.delete();
   }
 }

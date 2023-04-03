@@ -43,7 +43,7 @@ export interface ISoapRequest {
     fields: string[];
     options?: ISoapGetOptions;
   }): Promise<Array<any>>;
-  remove(): Promise<any>;
+  delete(): Promise<any>;
 }
 
 export interface PrimaryKeyField extends SfmcDataExtensionField {
@@ -197,7 +197,7 @@ export class SfmcDataExtensionSoap implements ISoapRequest {
     }
   }
 
-  async remove(): Promise<any> {
+  async delete(): Promise<any> {
     try {
       const response = await this.sendSoapRequest(
         deleteDataExtensionBody(this.objectKey),

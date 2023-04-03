@@ -184,7 +184,7 @@ declare module "sfmc-ts" {
      * Removes the data extension.
      * @returns {Promise<any>} - A promise that resolves when the data extension has been removed.
      */
-    remove(): Promise<any>;
+    delete(): Promise<any>;
   }
 
   export interface ISoapRequestBuilder {
