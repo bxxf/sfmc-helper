@@ -11,7 +11,7 @@ npm install sfmc-ts
 ```
 
 ## Usage
-To use the SFMC Helper library, you must first initialize it with your API configuration:
+First, initialize the SFMC Helper library with your API configuration:
 
 ```js
 import SfmcAPI from "sfmc-ts";
@@ -21,8 +21,8 @@ const sfmc = SfmcAPI({
   clientSecret: "YOUR_CLIENT_SECRET",
   authEndpoint: "https://YOUR_SUBDOMAIN.auth.marketingcloudapis.com",
   restEndpoint: "https://YOUR_SUBDOMAIN.rest.marketingcloudapis.com",
+  soapEndpoint: "https://YOUR_SUBDOMAIN.soap.marketingcloudapis.com",
   businessUnitId: "YOUR_BUSINESS_UNIT_ID",
-  soapEndpoint: "https://YOUR_SUBDOMAIN.soap.marketingcloudapis.com"
 });
 
 ```
@@ -32,7 +32,7 @@ Once initialized, you can use the `dataExtension` method to interact with data e
 ```js
 const dataExtension = sfmc.dataExtension("DATA_EXTENSION_OBJECT_KEY");
 
-// Fetch a row by a key column and its value
+// Fetch a row by key column and value
 const row = await dataExtension.row("Email", "someone@example.com").get();
 
 // Upsert a record in the data extension
@@ -44,8 +44,7 @@ await dataExtension.row("Email", "someone@example.com").upsert({
 // Query the data extension (fetch all)
 const records = await dataExtension.get().where("FirstName", "eq", "John").where("LastName", "eq", "Doe");
 
-
-// You can also use SOAP API if you want to
+// Use SOAP API if needed
 const resultSoap = await sfmc
   .dataExtension("DataExtensionName")
   .soap
@@ -53,80 +52,10 @@ const resultSoap = await sfmc
     queryAllAccounts: true,
   })
   .where("Name", "equals", "test");
-
 ```
 
 ## Reference
-
-### Config
-
-Represents the configuration object for the Marketing Cloud API.
-
-#### Properties
-
-- `clientId`: The client ID for the Marketing Cloud API.
-- `clientSecret`: The client secret for the Marketing Cloud API.
-- `authEndpoint`: The authentication endpoint for the Marketing Cloud API.
-- `restEndpoint`: The REST API endpoint for the Marketing Cloud API.
-- `soapEndpoint`: The SOAP API endpoint for the Marketing Cloud API.
-- `businessUnitId`: The business unit ID (clientID) for the Marketing Cloud API.
-
-### SFMC API (Main Object)
-
-Factory function to create a Salesforce Marketing Cloud Helper instance.
-
-#### Parameters
-  - `config`: The configuration object for the SFMC API.
-  
-- Returns an object with a `dataExtension` method that creates a new instance of the `SfmcDataExtension` class.
-
-### Data Extension
-
-Represents a data extension in the Marketing Cloud API.
-
-#### Properties
-
-##### soap
-
-Returns the SOAP API object with following methods:
-
-- `get(fields: string[], options?)`: Returns the DataExtension data with where() method for filtering
-- `create(fields: SfmcDataExtensionField[], options?)`: Creates the DataExtension
-  ( SfmcDataExtensionField - name: string, value: any, isPrimaryKey?: boolean; isRequired?: boolean )
-- `delete()`: Deletes the DataExtension
-
-#### Methods
-
-##### row(keyColumn: string, keyValue: string)
-
-Returns a row API for a specific key column and key value.
-
-- `keyColumn`: The key column name (usually primary key name).
-- `keyValue`: The key value - column value of row you are trying to fetch/modify.
-- Returns an object with the following methods:
-  - `get()`: A method that returns a promise with the row data or undefined.
-  - `upsert(record: object)`: A method that updates or creates a row in the data extension.
-
-##### get()
-
-Fetches all rows from the data extension.
-
-- Returns an instance of the `SfmcQueryBuilderWhere` class with a `where` method to filter data.
-
-### Where Clause Builder
-
-Interface for the `SfmcQueryBuilderWhere` class.
-
-#### Methods
-
-##### where(columnName: string, operator: string, value: string)
-
-Adds a WHERE clause to the query.
-
-- `columnName`: The column name for the filter.
-- `operator`: The comparison operator for the filter as a string. The supported values are `"eq"`, `"ne"`, `"lt"`, `"le"`, `"gt"`, `"ge"`, and `"like"`.
-- `value`: The value for the filter.
-
+Detailed reference documentation can be found in the [REFERENCE.md](REFRENCE.md) file.
 
 ## Roadmap
 - Add support for the SOAP API (✅ basic implementation).
