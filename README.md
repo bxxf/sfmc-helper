@@ -22,6 +22,7 @@ const sfmc = SfmcAPI({
   authEndpoint: "https://YOUR_SUBDOMAIN.auth.marketingcloudapis.com",
   restEndpoint: "https://YOUR_SUBDOMAIN.rest.marketingcloudapis.com",
   businessUnitId: "YOUR_BUSINESS_UNIT_ID",
+  soapEndpoint: "https://YOUR_SUBDOMAIN.soap.marketingcloudapis.com"
 });
 
 ```
@@ -105,7 +106,8 @@ Adds a WHERE clause to the query.
 
 
 ## Roadmap
-- Add support for the SOAP API.
+- Add support for the SOAP API (✅ basic implementation).
+- Add support for more operators between conditions (OR, etc.)
 - Add additional functions to interact with other objects in the Marketing Cloud API
 - Implement more granular error handling and logging capabilities.
 
