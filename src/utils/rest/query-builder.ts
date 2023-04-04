@@ -143,7 +143,7 @@ export class SfmcQueryBuilder {
 
           const valuesArray = data.items?.length
             ? (data as ApiResponse).items.map((item: any) => {
-                return { ...item.values, ...item.keys };
+                return { ...item.keys, ...item.values };
               })
             : [];
           return valuesArray;

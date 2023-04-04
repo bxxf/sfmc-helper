@@ -17,14 +17,13 @@ const someFunction = async () => {
   const sfmc = SfmcAPI(config);
 
   const result = await sfmc.dataExtension("DataExtensionName").get();
-  console.log(result);
+  console.log("REST", result);
 
   const resultSoap = await sfmc
     .dataExtension("DataExtensionName")
-    .soap.get(["Name", "Name2"])
-    .where("Name", "equals", "test");
+    .soap.get(["Name", "Name2", "Name3"])
 
-  console.log(resultSoap);
+  console.log("SOAP", resultSoap);
 };
 
 someFunction();
