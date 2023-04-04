@@ -1,4 +1,4 @@
-import { ISoapGetOptions } from "../../utils/soap/soap-client";
+import { ISoapGetOptions } from "../soap-client";
 
 export const retrieveDataExtensionBody = (
   objectKey: string,

@@ -1,8 +1,8 @@
 import type { ApiResponse, ComparisonOperator } from "sfmc-ts";
 
 import fetch from "node-fetch";
-import { SfmcFilter as Filter } from "./filter";
-import { SfmcHelper } from "../sfmc-ts";
+import { SfmcFilter as Filter } from "../rest/filter";
+import { SfmcHelper } from "../../sfmc-ts";
 
 export class SfmcQueryBuilder {
   private helper: SfmcHelper;
@@ -140,8 +140,11 @@ export class SfmcQueryBuilder {
       return response.then(async (res) => {
         if (res.ok) {
           const data = await res.json();
+
           const valuesArray = data.items?.length
-            ? (data as ApiResponse).items.map((item: any) => item.values)
+            ? (data as ApiResponse).items.map((item: any) => {
+                return { ...item.values, ...item.keys };
+              })
             : [];
           return valuesArray;
         } else {

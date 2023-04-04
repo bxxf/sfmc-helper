@@ -4,10 +4,10 @@ import { parseStringPromise } from "xml2js";
 import {
   createDataExtensionBody,
   createFieldsXml,
-} from "../../models/soap/create";
+} from "./actions/create";
 
-import { deleteDataExtensionBody } from "../../models/soap/delete";
-import { retrieveDataExtensionBody } from "../../models/soap/retrieve";
+import { deleteDataExtensionBody } from "./actions/delete";
+import { retrieveDataExtensionBody } from "./actions/retrieve";
 import { SfmcSoapFilter, createFilterXml } from "./soap-filter";
 import { SfmcHelper } from "../../sfmc-ts";
 

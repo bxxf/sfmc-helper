@@ -1,8 +1,8 @@
 import { SfmcHelper } from "../sfmc-ts";
-import { SfmcQueryBuilder, SfmcQueryBuilderWhere } from "./query-builder";
+import { SfmcQueryBuilder, SfmcQueryBuilderWhere } from "./rest/query-builder";
 
 import fetch from "node-fetch";
-import { ISoapRequest, SfmcDataExtensionSoap } from "./soap/soap-client";
+import { SfmcDataExtensionSoap } from "./soap/soap-client";
 import { SoapQueryBuilder } from "./soap/soap-query-builder";
 
 /**

@@ -1,4 +1,4 @@
-import { SfmcDataExtensionField } from "../../utils/soap/soap-client";
+import { SfmcDataExtensionField } from "../soap-client";
 
 export const createDataExtensionBody = (objectKey: string, xml: string) => `
 <CreateRequest xmlns="http://exacttarget.com/wsdl/partnerAPI">

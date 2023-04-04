@@ -1,4 +1,4 @@
-import SfmcAPI from "../dist";
+import SfmcAPI from "../src";
 
 // just importing env variables - you can skip this part
 import dotenv from "dotenv";
@@ -15,18 +15,13 @@ const config = {
 
 const someFunction = async () => {
   const sfmc = SfmcAPI(config);
-  
-  const result = await sfmc
-    .dataExtension("DataExtensionName")
-    .get()
+
+  const result = await sfmc.dataExtension("DataExtensionName").get();
   console.log(result);
 
   const resultSoap = await sfmc
     .dataExtension("DataExtensionName")
-    .soap
-    .get(["Name", "Name2"], {
-      queryAllAccounts: true,
-    })
+    .soap.get(["Name", "Name2"])
     .where("Name", "equals", "test");
 
   console.log(resultSoap);
